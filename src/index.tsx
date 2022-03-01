@@ -2,10 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import RootStore, { IRootStore } from "./store";
+
+const store = RootStore.create({} as IRootStore);
+
+export const StoreContext = React.createContext(store);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StoreContext.Provider value={store}>
+      <App />
+    </StoreContext.Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
