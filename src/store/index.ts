@@ -17,7 +17,21 @@ const Todo = types.model("Todo", {
 const RootStore = types
   .model("RootStore", {
     todos: types.optional(types.array(Todo), [
-      { id: 1, title: "111", complete: false },
+      {
+        id: 1,
+        title: "Первый",
+        complete: false,
+      },
+      {
+        id: 2,
+        title: "Второй",
+        complete: false,
+      },
+      {
+        id: 3,
+        title: "Третий",
+        complete: false,
+      },
     ]),
   })
   .actions((self) => ({

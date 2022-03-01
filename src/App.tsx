@@ -1,12 +1,14 @@
-import { observer } from "mobx-react-lite";
 import React from "react";
-import useStore from "./hooks/useStore";
+import Input from "./components/Input/Input";
+import TodoList from "./components/TodoList/TodoList";
 
 function App() {
-  const { todos } = useStore();
-  console.log(todos);
-
-  return <div className="App">asdasda</div>;
+  return (
+    <>
+      <Input />
+      <TodoList />
+    </>
+  );
 }
 
-export default observer(App);
+export default App;
