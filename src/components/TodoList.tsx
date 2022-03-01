@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
-import useStore from "../../hooks/useStore";
-import Todo from "../Todo/Todo";
+import useStore from "../hooks/useStore";
+import Todo from "./Todo";
 
 const TodoList = () => {
   const { todos } = useStore();
@@ -12,7 +12,7 @@ const TodoList = () => {
   return (
     <div>
       {todos.map((todo) => {
-        return <Todo todo={todo} />;
+        return <Todo key={todo.id} todo={todo} />;
       })}
     </div>
   );
