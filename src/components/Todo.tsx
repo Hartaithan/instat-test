@@ -49,13 +49,15 @@ const TodoDelete = styled.button`
 const Todo = ({ todo }: ITodoProps) => {
   const { todos, deleteTodo } = useStore();
 
+  const handleOnChange = () => {
+    todos[todo.id - 1].check();
+    localStorage.setItem("todos", JSON.stringify(todos));
+  };
+
   return (
     <TodoBody>
       <Flex align="center">
-        <TodoCheckbox
-          onChange={() => todos[todo.id - 1].check()}
-          checked={todo.complete}
-        />
+        <TodoCheckbox onChange={handleOnChange} checked={todo.complete} />
         <TodoTitle checked={todo.complete}>{todo.title}</TodoTitle>
         <TodoDelete onClick={() => deleteTodo(todo)}>
           <IconDelete />

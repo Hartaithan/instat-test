@@ -8,6 +8,9 @@ export interface ITodo extends Instance<typeof Todo> {
   complete: boolean;
 }
 
+const getTodos = localStorage.getItem("todos");
+const persistTodos = getTodos ? JSON.parse(getTodos) : [];
+
 const Todo = types
   .model("Todo", {
     id: types.optional(types.identifierNumber, 1),
@@ -22,7 +25,7 @@ const Todo = types
 
 const RootStore = types
   .model("RootStore", {
-    todos: types.optional(types.array(Todo), []),
+    todos: types.optional(types.array(Todo), persistTodos),
     input: types.optional(types.string, ""),
   })
   .actions((self) => ({
@@ -30,9 +33,11 @@ const RootStore = types
       const id = self.todos.length + 1;
       self.todos.push(Todo.create({ id, title }));
       self.input = "";
+      localStorage.setItem("todos", JSON.stringify(self.todos));
     },
     deleteTodo(todo: ITodo) {
       self.todos.remove(todo);
+      localStorage.setItem("todos", JSON.stringify(self.todos));
     },
     setInput(input: string) {
       self.input = input;
