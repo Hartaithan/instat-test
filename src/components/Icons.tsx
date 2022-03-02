@@ -14,3 +14,16 @@ export const IconDelete = () => {
     </svg>
   );
 };
+
+export const IconSend = () => {
+  return (
+    <svg
+      width="30px"
+      height="30px"
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M16,464,496,256,16,48V208l320,48L16,304Z" fill="#a3a3a3" />
+    </svg>
+  );
+};
