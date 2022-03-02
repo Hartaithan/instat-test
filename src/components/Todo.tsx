@@ -13,7 +13,7 @@ const TodoBody = styled.div`
   width: 100%;
   background: #141414;
   border-radius: 8px;
-  :not(:last-child) {
+  &:not(:last-child) {
     margin-bottom: 10px;
   }
 `;
@@ -26,7 +26,6 @@ const TodoTitle = styled.p`
 
 const TodoCheckbox = styled.input.attrs({ type: "checkbox" })`
   margin-left: 15px;
-  background: red;
   transform: scale(1.5);
   filter: grayscale(100%);
   -webkit-filter: grayscale(100%);
