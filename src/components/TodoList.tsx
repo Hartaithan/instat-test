@@ -4,8 +4,13 @@ import styled from "styled-components";
 import useStore from "../hooks/useStore";
 import Todo from "./Todo";
 
-const TodoList = () => {
-  const { todos } = useStore();
+interface ITodoListProps {
+  isFocused: boolean;
+  search: string;
+}
+
+const TodoList = ({ isFocused, search }: ITodoListProps) => {
+  const { todos, searchTodos } = useStore();
 
   const EmptyMessage = styled.p`
     width: 100%;
@@ -18,9 +23,13 @@ const TodoList = () => {
   }
   return (
     <div>
-      {todos.map((todo) => {
-        return <Todo key={todo.id} todo={todo} />;
-      })}
+      {isFocused
+        ? searchTodos(search).map((todo) => {
+            return <Todo key={todo.id} todo={todo} />;
+          })
+        : todos.map((todo) => {
+            return <Todo key={todo.id} todo={todo} />;
+          })}
     </div>
   );
 };

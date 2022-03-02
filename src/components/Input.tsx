@@ -2,6 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import useStore from "../hooks/useStore";
 
+interface IInputProps {
+  isFocused: boolean;
+  setFocused: React.Dispatch<React.SetStateAction<boolean>>;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+}
+
 const TodoInput = styled.input.attrs({
   type: "text",
   placeholder: "Что вам нужно сделать?",
@@ -20,8 +26,8 @@ const TodoInput = styled.input.attrs({
   }
 `;
 
-const Input = () => {
-  const { addTodo } = useStore();
+const Input = ({ isFocused, setFocused }: IInputProps) => {
+  const { addTodo, searchTodos } = useStore();
 
   const [input, setInput] = React.useState<string>("");
 
@@ -32,11 +38,17 @@ const Input = () => {
     }
   };
 
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+
   return (
     <TodoInput
       value={input}
       onKeyDown={handleKeyDown}
-      onChange={(e) => setInput(e.target.value)}
+      onChange={handleOnChange}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
     />
   );
 };
