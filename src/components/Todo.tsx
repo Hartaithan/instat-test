@@ -51,7 +51,6 @@ const Todo = ({ todo }: ITodoProps) => {
 
   const handleOnChange = () => {
     todos[todo.id - 1].check();
-    localStorage.setItem("todos", JSON.stringify(todos));
   };
 
   return (

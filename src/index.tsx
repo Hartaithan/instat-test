@@ -3,8 +3,13 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import RootStore, { IRootStore } from "./store";
 import { createGlobalStyle } from "styled-components";
+import { onPatch } from "mobx-state-tree";
 
 const store = RootStore.create({} as IRootStore);
+
+onPatch(store, (patch) => {
+  localStorage.setItem("todos", JSON.stringify(store.todos));
+});
 
 export const StoreContext = React.createContext(store);
 

@@ -33,11 +33,9 @@ const RootStore = types
       const id = self.todos.length + 1;
       self.todos.push(Todo.create({ id, title }));
       self.input = "";
-      localStorage.setItem("todos", JSON.stringify(self.todos));
     },
     deleteTodo(todo: ITodo) {
       self.todos.remove(todo);
-      localStorage.setItem("todos", JSON.stringify(self.todos));
     },
     setInput(input: string) {
       self.input = input;
