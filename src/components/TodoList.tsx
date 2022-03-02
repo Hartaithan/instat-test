@@ -6,10 +6,10 @@ import Todo from "./Todo";
 
 interface ITodoListProps {
   isFocused: boolean;
-  search: string;
+  input: string;
 }
 
-const TodoList = ({ isFocused, search }: ITodoListProps) => {
+const TodoList = ({ isFocused, input }: ITodoListProps) => {
   const { todos, searchTodos } = useStore();
 
   const EmptyMessage = styled.p`
@@ -21,10 +21,13 @@ const TodoList = ({ isFocused, search }: ITodoListProps) => {
   if (todos.length === 0) {
     return <EmptyMessage>Задачи еще не добавлены</EmptyMessage>;
   }
+  if (searchTodos(input).length === 0) {
+    return <EmptyMessage>Задачи не найдены</EmptyMessage>;
+  }
   return (
     <div>
       {isFocused
-        ? searchTodos(search).map((todo) => {
+        ? searchTodos(input).map((todo) => {
             return <Todo key={todo.id} todo={todo} />;
           })
         : todos.map((todo) => {

@@ -7,7 +7,7 @@ import Flex from "./Flex";
 import { IconDelete } from "./Icons";
 
 interface ITodoProps {
-  todo: ITodo;
+  todo: ITodo | any;
 }
 
 interface ITodoTitleProps {

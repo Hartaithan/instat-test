@@ -5,7 +5,8 @@ import useStore from "../hooks/useStore";
 interface IInputProps {
   isFocused: boolean;
   setFocused: React.Dispatch<React.SetStateAction<boolean>>;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  input: string;
+  setInput: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const TodoInput = styled.input.attrs({
@@ -26,10 +27,8 @@ const TodoInput = styled.input.attrs({
   }
 `;
 
-const Input = ({ isFocused, setFocused }: IInputProps) => {
-  const { addTodo, searchTodos } = useStore();
-
-  const [input, setInput] = React.useState<string>("");
+const Input = ({ isFocused, setFocused, input, setInput }: IInputProps) => {
+  const { addTodo } = useStore();
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && input !== "") {
@@ -41,6 +40,12 @@ const Input = ({ isFocused, setFocused }: IInputProps) => {
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
+
+  React.useEffect(() => {
+    if (!isFocused) {
+      setInput("");
+    }
+  }, [isFocused]);
 
   return (
     <TodoInput

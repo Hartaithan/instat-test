@@ -3,16 +3,17 @@ import Input from "./components/Input";
 import TodoList from "./components/TodoList";
 
 function App() {
-  const [search, setSearch] = React.useState("");
-  const [isFocused, setFocused] = React.useState(false);
+  const [input, setInput] = React.useState<string>("");
+  const [isFocused, setFocused] = React.useState<boolean>(false);
   return (
     <>
       <Input
         isFocused={isFocused}
         setFocused={setFocused}
-        setSearch={setSearch}
+        input={input}
+        setInput={setInput}
       />
-      <TodoList isFocused={isFocused} search={search} />
+      <TodoList isFocused={isFocused} input={input} />
     </>
   );
 }
