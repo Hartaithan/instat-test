@@ -20,6 +20,11 @@ const Global = createGlobalStyle`
     box-sizing: border-box;
     font-family: "Inter", sans-serif;
     color: #ffffff;
+    scrollbar-width: thin;
+    scrollbar-color: #333333 #ffffff;
+    -webkit-font-feature-settings: "lnum";
+    -moz-font-feature-settings: "lnum";
+    font-feature-settings: "lnum";
   }
 
   html,
@@ -37,6 +42,20 @@ const Global = createGlobalStyle`
     max-width: 1080px;
     margin: 0 auto;
     padding: 24px 0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #333333;
   }
 `;
 
