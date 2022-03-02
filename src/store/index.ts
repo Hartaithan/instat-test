@@ -12,27 +12,15 @@ const Todo = types.model("Todo", {
   id: types.optional(types.identifierNumber, 1),
   title: types.optional(types.string, ""),
   complete: types.optional(types.boolean, false),
-});
+}).actions((self) => ({
+  check() {
+    self.complete = !self.complete
+  }
+}));
 
 const RootStore = types
   .model("RootStore", {
-    todos: types.optional(types.array(Todo), [
-      {
-        id: 1,
-        title: "Первый",
-        complete: false,
-      },
-      {
-        id: 2,
-        title: "Второй",
-        complete: false,
-      },
-      {
-        id: 3,
-        title: "Третий",
-        complete: false,
-      },
-    ]),
+    todos: types.optional(types.array(Todo), []),
   })
   .actions((self) => ({
     addTodo(title: string) {

@@ -26,8 +26,9 @@ const Input = () => {
   const [input, setInput] = React.useState<string>("");
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && input !== "") {
       addTodo(input);
+      setInput("");
     }
   };
 

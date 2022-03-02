@@ -1,11 +1,17 @@
 import React from "react";
+import { observer } from "mobx-react-lite";
 import styled from "styled-components";
+import useStore from "../hooks/useStore";
 import { ITodo } from "../store";
 import Flex from "./Flex";
 import { IconDelete } from "./Icons";
 
 interface ITodoProps {
   todo: ITodo;
+}
+
+interface ITodoTitleProps {
+  checked: boolean;
 }
 
 const TodoBody = styled.div`
@@ -18,10 +24,11 @@ const TodoBody = styled.div`
   }
 `;
 
-const TodoTitle = styled.p`
+const TodoTitle = styled.p<ITodoTitleProps>`
   margin-left: 15px;
   font-size: 18px;
   flex: 1;
+  text-decoration: ${(props) => (props.checked ? "line-through" : "none")};
 `;
 
 const TodoCheckbox = styled.input.attrs({ type: "checkbox" })`
@@ -40,11 +47,16 @@ const TodoDelete = styled.button`
 `;
 
 const Todo = ({ todo }: ITodoProps) => {
+  const { todos } = useStore();
+
   return (
     <TodoBody>
       <Flex align="center">
-        <TodoCheckbox />
-        <TodoTitle>{todo.title}</TodoTitle>
+        <TodoCheckbox
+          onChange={() => todos[todo.id].check()}
+          checked={todo.complete}
+        />
+        <TodoTitle checked={todo.complete}>{todo.title}</TodoTitle>
         <TodoDelete>
           <IconDelete />
         </TodoDelete>
@@ -53,4 +65,4 @@ const Todo = ({ todo }: ITodoProps) => {
   );
 };
 
-export default Todo;
+export default observer(Todo);
