@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import useStore from "../hooks/useStore";
 
 const TodoInput = styled.input.attrs({
   type: "text",
@@ -20,7 +21,23 @@ const TodoInput = styled.input.attrs({
 `;
 
 const Input = () => {
-  return <TodoInput />;
+  const { addTodo } = useStore();
+
+  const [input, setInput] = React.useState<string>("");
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      addTodo(input);
+    }
+  };
+
+  return (
+    <TodoInput
+      value={input}
+      onKeyDown={handleKeyDown}
+      onChange={(e) => setInput(e.target.value)}
+    />
+  );
 };
 
 export default Input;
