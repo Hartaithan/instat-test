@@ -1,13 +1,7 @@
+import { observer } from "mobx-react-lite";
 import React from "react";
 import styled from "styled-components";
 import useStore from "../hooks/useStore";
-
-interface IInputProps {
-  isFocused: boolean;
-  setFocused: React.Dispatch<React.SetStateAction<boolean>>;
-  input: string;
-  setInput: React.Dispatch<React.SetStateAction<string>>;
-}
 
 const TodoInput = styled.input.attrs({
   type: "text",
@@ -27,13 +21,12 @@ const TodoInput = styled.input.attrs({
   }
 `;
 
-const Input = ({ isFocused, setFocused, input, setInput }: IInputProps) => {
-  const { addTodo } = useStore();
+const Input = () => {
+  const { addTodo, input, setInput } = useStore();
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && input !== "") {
       addTodo(input);
-      setInput("");
     }
   };
 
@@ -41,21 +34,13 @@ const Input = ({ isFocused, setFocused, input, setInput }: IInputProps) => {
     setInput(e.target.value);
   };
 
-  React.useEffect(() => {
-    if (!isFocused) {
-      setInput("");
-    }
-  }, [isFocused]);
-
   return (
     <TodoInput
       value={input}
       onKeyDown={handleKeyDown}
       onChange={handleOnChange}
-      onFocus={() => setFocused(true)}
-      onBlur={() => setFocused(false)}
     />
   );
 };
 
-export default Input;
+export default observer(Input);

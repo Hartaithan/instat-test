@@ -1,4 +1,3 @@
-import { values } from "mobx";
 import { Instance, types } from "mobx-state-tree";
 
 export interface IRootStore extends Instance<typeof RootStore> {}
@@ -24,19 +23,19 @@ const Todo = types
 const RootStore = types
   .model("RootStore", {
     todos: types.optional(types.array(Todo), []),
+    input: types.optional(types.string, ""),
   })
-  .views((self) => ({
-    searchTodos(query: string) {
-      return values(self.todos).filter((todo) => todo.title?.includes(query));
-    },
-  }))
   .actions((self) => ({
     addTodo(title: string) {
       const id = self.todos.length + 1;
       self.todos.push(Todo.create({ id, title }));
+      self.input = "";
     },
     deleteTodo(todo: ITodo) {
       self.todos.remove(todo);
+    },
+    setInput(input: string) {
+      self.input = input;
     },
   }));
 

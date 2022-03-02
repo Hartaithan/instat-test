@@ -4,13 +4,12 @@ import styled from "styled-components";
 import useStore from "../hooks/useStore";
 import Todo from "./Todo";
 
-interface ITodoListProps {
-  isFocused: boolean;
-  input: string;
-}
+const TodoList = () => {
+  const { todos, input } = useStore();
 
-const TodoList = ({ isFocused, input }: ITodoListProps) => {
-  const { todos, searchTodos } = useStore();
+  const filteredTodos = [...todos].filter((todo) =>
+    todo.title.toLowerCase().includes(input.toLowerCase())
+  );
 
   const EmptyMessage = styled.p`
     width: 100%;
@@ -21,18 +20,14 @@ const TodoList = ({ isFocused, input }: ITodoListProps) => {
   if (todos.length === 0) {
     return <EmptyMessage>Задачи еще не добавлены</EmptyMessage>;
   }
-  if (searchTodos(input).length === 0) {
+  if (filteredTodos.length === 0) {
     return <EmptyMessage>Задачи не найдены</EmptyMessage>;
   }
   return (
     <div>
-      {isFocused
-        ? searchTodos(input).map((todo) => {
-            return <Todo key={todo.id} todo={todo} />;
-          })
-        : todos.map((todo) => {
-            return <Todo key={todo.id} todo={todo} />;
-          })}
+      {filteredTodos.map((todo) => {
+        return <Todo key={todo.id} todo={todo} />;
+      })}
     </div>
   );
 };
