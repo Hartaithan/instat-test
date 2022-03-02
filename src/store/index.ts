@@ -8,15 +8,17 @@ export interface ITodo extends Instance<typeof Todo> {
   complete: boolean;
 }
 
-const Todo = types.model("Todo", {
-  id: types.optional(types.identifierNumber, 1),
-  title: types.optional(types.string, ""),
-  complete: types.optional(types.boolean, false),
-}).actions((self) => ({
-  check() {
-    self.complete = !self.complete
-  }
-}));
+const Todo = types
+  .model("Todo", {
+    id: types.optional(types.identifierNumber, 1),
+    title: types.optional(types.string, ""),
+    complete: types.optional(types.boolean, false),
+  })
+  .actions((self) => ({
+    check() {
+      self.complete = !self.complete;
+    },
+  }));
 
 const RootStore = types
   .model("RootStore", {
@@ -26,6 +28,9 @@ const RootStore = types
     addTodo(title: string) {
       const id = self.todos.length + 1;
       self.todos.push(Todo.create({ id, title }));
+    },
+    deleteTodo(todo: ITodo) {
+      self.todos.remove(todo);
     },
   }));
 

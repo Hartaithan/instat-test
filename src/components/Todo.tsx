@@ -47,17 +47,17 @@ const TodoDelete = styled.button`
 `;
 
 const Todo = ({ todo }: ITodoProps) => {
-  const { todos } = useStore();
+  const { todos, deleteTodo } = useStore();
 
   return (
     <TodoBody>
       <Flex align="center">
         <TodoCheckbox
-          onChange={() => todos[todo.id].check()}
+          onChange={() => todos[todo.id - 1].check()}
           checked={todo.complete}
         />
         <TodoTitle checked={todo.complete}>{todo.title}</TodoTitle>
-        <TodoDelete>
+        <TodoDelete onClick={() => deleteTodo(todo)}>
           <IconDelete />
         </TodoDelete>
       </Flex>
